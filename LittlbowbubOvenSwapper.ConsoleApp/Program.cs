@@ -29,7 +29,7 @@ internal class Program
         WriteLine("Littlbowbub's Oven Swapper");
         var replacingOven = QuitIfNull(SelectOven(ovens, "Which oven am I replacing?"));
         var substitutionOven = QuitIfNull(SelectOven(ovens, "Which oven am I substituting in for the one I'm replacing?"));
-        var substitutionOverId = substitutionOven.ToString();
+        var substitutionOvenId = substitutionOven.ToString();
         var substitutionOvenName = ovens[substitutionOven];
         var outputDirectory = QuitIfNull(SelectDirectory("Where should I be outputting packages I've changed?"));
         var replacingOvenXPathQuery = $"./I[@i = 'recipe' and @c = 'Recipe']/L[@n = '_phases']/U/V[@n = 'value' and @t = 'multi_stage_phase_ref']/U[@n = 'multi_stage_phase_ref']/T[@n = 'factory' and normalize-space(text()) = '{replacingOven}']";
@@ -61,7 +61,7 @@ internal class Program
                         foreach (XElement affectedRecipeMultiStagePhaseFactory in affectedRecipeMultiStagePhaseFactories)
                         {
                             affectedRecipeMultiStagePhaseFactory.RemoveNodes();
-                            affectedRecipeMultiStagePhaseFactory.Add(new XText(substitutionOverId));
+                            affectedRecipeMultiStagePhaseFactory.Add(new XText(substitutionOvenId));
                             affectedRecipeMultiStagePhaseFactory.Add(new XComment(substitutionOvenName));
                         }
                         using var newTuningMarkupStream = new MemoryStream();
